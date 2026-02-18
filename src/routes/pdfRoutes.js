@@ -22,7 +22,8 @@ router.post("/upload", authMiddleware, upload.single("pdf"), async (req, res) =>
       return res.status(400).json({ message: "No file uploaded" });
     }
 
-    const fileUrl = `http://localhost:5000/uploads/${req.file.filename}`;
+    const baseUrl = process.env.BASE_URL || "http://localhost:5000";
+const fileUrl = `${baseUrl}/uploads/${req.file.filename}`;
 
     const document = await Document.create({
       owner: req.user.userId,   
